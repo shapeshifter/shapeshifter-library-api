@@ -10,6 +10,5 @@ public class UftpapiApplication {
     public static void main(String[] args){
         System.out.println("Welcome");
         SpringApplication.run(UftpapiApplication.class, args);
-        Message message = new Message();
     }
 }
