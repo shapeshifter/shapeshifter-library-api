@@ -1,6 +1,5 @@
 package eu.uftpapi;
 
-import eu.uftpapi.entity.Message;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
