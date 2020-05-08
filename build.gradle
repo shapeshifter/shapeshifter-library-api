@@ -14,12 +14,10 @@ version '0.0.1-SNAPSHOT'
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation('org.postgresql:postgresql')
+
+    runtimeOnly('org.postgresql:postgresql')
 
     implementation files('../uftplib/build/libs/eu.uftplib-0.0.1-SNAPSHOT.jar')
-
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
