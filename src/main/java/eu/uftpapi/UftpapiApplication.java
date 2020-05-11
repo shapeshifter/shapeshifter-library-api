@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import eu.uftplib.repository.MessageRepository;
 import eu.uftplib.service.UftpService;
@@ -20,6 +21,7 @@ import eu.uftplib.service.DeliveryStatus;
 import eu.uftplib.service.UftpServiceImplementation;
 
 @SpringBootApplication(scanBasePackages = "eu.uftplib,eu.uftpapi")
+@EnableScheduling()
 @EnableJpaRepositories("eu.uftplib")
 @EntityScan("eu.uftplib")
 
@@ -46,8 +48,8 @@ public class UftpapiApplication implements NewMessageListener, DeliveryStatusLis
         };
     }
 
-    public void newMessage(String message) {
-        System.out.println("new mesage:::::::: " + message);
+    public void newMessage(Long message, String xml) {
+        System.out.println("new mesage:::::::: " + message + " - " + xml);
     };
 
     public void deliveryStatus(Long message, DeliveryStatus status) {
