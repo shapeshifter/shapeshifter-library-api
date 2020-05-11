@@ -42,6 +42,7 @@ public class UftpapiApplication implements NewMessageListener, DeliveryStatusLis
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             var i = ctx.getBean(UftpService.class);
             i.addNewMessageListener(this);
+            i.addDeliveryStatusListener(this);
         };
     }
 
