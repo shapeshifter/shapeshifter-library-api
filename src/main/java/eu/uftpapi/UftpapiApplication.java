@@ -15,13 +15,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import eu.uftplib.repository.MessageRepository;
 import eu.uftplib.service.UftpService;
 import eu.uftplib.service.NewMessageListener;
+import eu.uftplib.service.DeliveryStatusListener;
+import eu.uftplib.service.DeliveryStatus;
 import eu.uftplib.service.UftpServiceImplementation;
 
 @SpringBootApplication(scanBasePackages = "eu.uftplib,eu.uftpapi")
 @EnableJpaRepositories("eu.uftplib")
 @EntityScan("eu.uftplib")
 
-public class UftpapiApplication implements NewMessageListener {
+public class UftpapiApplication implements NewMessageListener, DeliveryStatusListener {
 
     public static void main(String[] args){
         System.out.println("Welcome");
@@ -46,4 +48,9 @@ public class UftpapiApplication implements NewMessageListener {
     public void newMessage(String message) {
         System.out.println("new mesage:::::::: " + message);
     };
+
+    public void deliveryStatus(Long message, DeliveryStatus status) {
+        System.out.println("new status:::::::: " + message + " : " + status);
+    };
+
 }
