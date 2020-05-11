@@ -1,7 +1,5 @@
 package eu.uftpapi;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +17,14 @@ import eu.uftplib.service.NewMessageListener;
 import eu.uftplib.service.DeliveryStatusListener;
 import eu.uftplib.service.DeliveryStatus;
 import eu.uftplib.service.UftpServiceImplementation;
+import eu.uftplib.service.UftpSigningService;
+import eu.uftplib.service.UftpSigningServiceImplementation;
+import eu.uftplib.service.UftpParticipantService;
+import eu.uftplib.service.UftpParticipantServiceStub;
+import eu.uftplib.service.UftpValidationService;
+import eu.uftplib.service.UftpValidationServiceImplementation;
+import eu.uftplib.service.UftpSendMessageService;
+import eu.uftplib.service.UftpSendMessageServiceImplementation;
 
 @SpringBootApplication(scanBasePackages = "eu.uftplib,eu.uftpapi")
 @EnableScheduling()
@@ -33,9 +39,29 @@ public class UftpapiApplication implements NewMessageListener, DeliveryStatusLis
     }
 
     @Bean
+    public UftpParticipantService uftpParticipantService() {
+        return new UftpParticipantServiceStub();
+    }
+
+    @Bean
+    public UftpSigningService uftpSigningService() {
+        return new UftpSigningServiceImplementation();
+    }
+
+    @Bean
+    public UftpSendMessageService uftpSendMessageService(UftpParticipantService uftpParticipantService, UftpSigningService uftpSigningService) {
+        return new UftpSendMessageServiceImplementation(uftpParticipantService, uftpSigningService);
+    }
+
+    @Bean
+    public UftpValidationService uftpValidationService() {
+        return new UftpValidationServiceImplementation("AGR");
+    }
+
+    @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public UftpService uftpService(MessageRepository messageRepository) {
-        return new UftpServiceImplementation(messageRepository);
+    public UftpService uftpService(MessageRepository messageRepository, UftpSendMessageService uftpSendMessageService, UftpValidationService uftpValidationService) {
+        return new UftpServiceImplementation(messageRepository, uftpSendMessageService, uftpValidationService, "ABCDEFGHJ", 5L);
     }
 
     @Bean

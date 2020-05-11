@@ -15,6 +15,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+  implementation "com.goterl.lazycode:lazysodium-java:4.2.6"
+  implementation "net.java.dev.jna:jna:5.5.0"
+
+
     runtimeOnly('org.postgresql:postgresql')
 
     implementation files('../uftplib/build/libs/eu.uftplib-0.0.1-SNAPSHOT.jar')
