@@ -1,5 +1,6 @@
 package eu.uftpapi;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,6 +34,11 @@ import eu.uftplib.service.UftpSendMessageServiceImplementation;
 
 public class UftpapiApplication implements NewMessageListener, DeliveryStatusListener {
 
+    @Value("${uftplib.role}")
+    private String role;
+    @Value("${uftplib.privatekey}")
+    private String privateKey;
+
     public static void main(String[] args){
         System.out.println("Welcome");
         SpringApplication.run(UftpapiApplication.class, args);
@@ -45,7 +51,7 @@ public class UftpapiApplication implements NewMessageListener, DeliveryStatusLis
 
     @Bean
     public UftpSigningService uftpSigningService() {
-        return new UftpSigningServiceImplementation();
+        return new UftpSigningServiceImplementation(role);
     }
 
     @Bean
@@ -55,13 +61,13 @@ public class UftpapiApplication implements NewMessageListener, DeliveryStatusLis
 
     @Bean
     public UftpValidationService uftpValidationService() {
-        return new UftpValidationServiceImplementation("AGR");
+        return new UftpValidationServiceImplementation(role);
     }
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public UftpService uftpService(MessageRepository messageRepository, UftpSendMessageService uftpSendMessageService, UftpValidationService uftpValidationService) {
-        return new UftpServiceImplementation(messageRepository, uftpSendMessageService, uftpValidationService, "ABCDEFGHJ", 5L);
+        return new UftpServiceImplementation(messageRepository, uftpSendMessageService, uftpValidationService, privateKey, 5L);
     }
 
     @Bean
