@@ -18,10 +18,14 @@ public class MessageController {
 		this.lib = lib;
 	}
 
-	@RequestMapping(value = "/message", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/message", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> postMessage(HttpEntity<String> httpEntity) {
 		String xml = httpEntity.getBody();
-		lib.sendMessage(xml);
+		try {
+			lib.sendMessage(xml);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("{'error': '" + e.getMessage() + "'}");
+		}
 		return ResponseEntity.ok(null);
 	}
 
