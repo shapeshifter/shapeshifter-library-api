@@ -13,7 +13,20 @@ The postgres database scheme will be created in the configured postgres database
 Use the following command to start the api:
 
 on linux:
-./gradlew bootRun
+```./gradlew bootRun```
 
 on windows:
-gradlew.bat bootRun
+```gradlew.bat bootRun```
+
+on Docker:
+requires pre-built jar, or:
+
+```./gradlew build```
+
+then:
+
+```
+docker build -t uftpapi .
+docker run -p 8024:8024 uftpapi
+```
+
