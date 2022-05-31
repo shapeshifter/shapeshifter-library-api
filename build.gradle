@@ -5,7 +5,7 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 group 'eu.uftpapi'
@@ -14,14 +14,17 @@ version '0.0.1-SNAPSHOT'
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation "com.goterl:lazysodium-java:5.1.1"
+    implementation "net.java.dev.jna:jna:5.11.0"
 
-    implementation "com.goterl.lazycode:lazysodium-java:4.2.6"
-    implementation "net.java.dev.jna:jna:5.5.0"
+    // Use a newer version than in lazysodium-java to fix nested jar loading
+    implementation "com.goterl:resource-loader:2.0.2"
 
 
     runtimeOnly('org.postgresql:postgresql')
 
-    implementation files('../uftplib/build/libs/eu.uftplib-0.0.1-SNAPSHOT.jar')
+    implementation files('../shapeshifter-library/build/libs/eu.uftplib-0.0.1-SNAPSHOT.jar')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

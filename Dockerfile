@@ -1,6 +1,6 @@
 FROM openjdk:14.0.2-slim-buster
 
-ADD build/libs/uftpapi-*.jar app.jar
+ADD build/libs/shapeshifter-library-api-*.jar app.jar
 
 RUN adduser --system java
 
