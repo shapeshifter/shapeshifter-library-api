@@ -1,3 +1,13 @@
+# ARCHIVAL NOTICE
+
+*This repository is no longer maintained.*
+
+This repository was originally built to provide an easy-to-run self-contained instance of the shapeshifter library that
+could be used to send Shapeshifter messages, even from programming languages that are not directly supported in a lanuage-specific library.
+
+Because it has not been used in practice by any market parties it has not been maintained properly and became deprecated.
+If you feel like this feature would support your use of the protocol, please open an issue on one of the active ShapeShifter repositories.
+
 # uftpapi
 
 To run the api you need to build the uftplib library using the instructions in the uftplib readme. This will produce the library on the relative location:
